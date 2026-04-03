@@ -1,0 +1,281 @@
+[
+  {
+    "id": "meal-001",
+    "name": "Spaghetti Aglio e Olio",
+    "description": "Classic Italian pasta with garlic, olive oil, and parsley. Simple, bold, and ready fast.",
+    "estimatedCost": 4.50,
+    "restaurantPrice": 18.00,
+    "cookingTime": 20,
+    "dietaryTags": ["vegetarian", "vegan", "dairy-free", "nut-free"],
+    "macros": { "calories": 520, "protein": 14, "carbs": 68, "fat": 22 },
+    "ingredients": [
+      { "name": "Spaghetti", "quantity": 200, "unit": "g", "averagePrice": 1.50 },
+      { "name": "Garlic", "quantity": 4, "unit": "cloves", "averagePrice": 0.40 },
+      { "name": "Olive oil", "quantity": 3, "unit": "tbsp", "averagePrice": 0.60 },
+      { "name": "Fresh parsley", "quantity": 2, "unit": "tbsp", "averagePrice": 0.50 },
+      { "name": "Red pepper flakes", "quantity": 0.5, "unit": "tsp", "averagePrice": 0.10 },
+      { "name": "Salt", "quantity": 1, "unit": "tsp", "averagePrice": 0.05 }
+    ]
+  },
+  {
+    "id": "meal-002",
+    "name": "Black Bean Tacos",
+    "description": "Crispy corn tortillas filled with spiced black beans, salsa, and avocado.",
+    "estimatedCost": 6.00,
+    "restaurantPrice": 14.00,
+    "cookingTime": 15,
+    "dietaryTags": ["vegetarian", "vegan", "gluten-free", "dairy-free", "nut-free"],
+    "macros": { "calories": 480, "protein": 18, "carbs": 65, "fat": 16 },
+    "ingredients": [
+      { "name": "Corn tortillas", "quantity": 6, "unit": "pieces", "averagePrice": 1.20 },
+      { "name": "Black beans (canned)", "quantity": 400, "unit": "g", "averagePrice": 1.00 },
+      { "name": "Avocado", "quantity": 1, "unit": "whole", "averagePrice": 1.50 },
+      { "name": "Salsa", "quantity": 4, "unit": "tbsp", "averagePrice": 0.60 },
+      { "name": "Cumin", "quantity": 1, "unit": "tsp", "averagePrice": 0.10 },
+      { "name": "Lime", "quantity": 1, "unit": "whole", "averagePrice": 0.40 }
+    ]
+  },
+  {
+    "id": "meal-003",
+    "name": "Chicken Stir-Fry",
+    "description": "Quick and savory chicken with vegetables and soy sauce over fluffy white rice.",
+    "estimatedCost": 9.00,
+    "restaurantPrice": 19.00,
+    "cookingTime": 25,
+    "dietaryTags": ["gluten-free", "dairy-free", "nut-free"],
+    "macros": { "calories": 520, "protein": 42, "carbs": 48, "fat": 14 },
+    "ingredients": [
+      { "name": "Chicken breast", "quantity": 300, "unit": "g", "averagePrice": 3.50 },
+      { "name": "Broccoli", "quantity": 200, "unit": "g", "averagePrice": 1.20 },
+      { "name": "Bell pepper", "quantity": 1, "unit": "whole", "averagePrice": 0.90 },
+      { "name": "Soy sauce (GF)", "quantity": 3, "unit": "tbsp", "averagePrice": 0.40 },
+      { "name": "Sesame oil", "quantity": 1, "unit": "tbsp", "averagePrice": 0.50 },
+      { "name": "White rice", "quantity": 160, "unit": "g", "averagePrice": 0.80 },
+      { "name": "Garlic", "quantity": 2, "unit": "cloves", "averagePrice": 0.20 }
+    ]
+  },
+  {
+    "id": "meal-004",
+    "name": "Lentil Soup",
+    "description": "Hearty and warming red lentil soup with cumin and a squeeze of lemon.",
+    "estimatedCost": 4.00,
+    "restaurantPrice": 12.00,
+    "cookingTime": 35,
+    "dietaryTags": ["vegetarian", "vegan", "gluten-free", "dairy-free", "nut-free"],
+    "macros": { "calories": 380, "protein": 22, "carbs": 54, "fat": 8 },
+    "ingredients": [
+      { "name": "Red lentils", "quantity": 200, "unit": "g", "averagePrice": 1.20 },
+      { "name": "Onion", "quantity": 1, "unit": "whole", "averagePrice": 0.50 },
+      { "name": "Carrot", "quantity": 2, "unit": "whole", "averagePrice": 0.40 },
+      { "name": "Cumin", "quantity": 1.5, "unit": "tsp", "averagePrice": 0.15 },
+      { "name": "Vegetable broth", "quantity": 750, "unit": "ml", "averagePrice": 1.20 },
+      { "name": "Lemon juice", "quantity": 2, "unit": "tbsp", "averagePrice": 0.30 },
+      { "name": "Olive oil", "quantity": 2, "unit": "tbsp", "averagePrice": 0.40 }
+    ]
+  },
+  {
+    "id": "meal-005",
+    "name": "Greek Salad with Chickpeas",
+    "description": "A refreshing no-cook salad with cucumber, olives, chickpeas, and creamy feta.",
+    "estimatedCost": 7.00,
+    "restaurantPrice": 16.00,
+    "cookingTime": 15,
+    "dietaryTags": ["vegetarian", "gluten-free", "nut-free"],
+    "macros": { "calories": 420, "protein": 18, "carbs": 38, "fat": 22 },
+    "ingredients": [
+      { "name": "Chickpeas (canned)", "quantity": 400, "unit": "g", "averagePrice": 1.00 },
+      { "name": "Cucumber", "quantity": 1, "unit": "whole", "averagePrice": 0.80 },
+      { "name": "Cherry tomatoes", "quantity": 200, "unit": "g", "averagePrice": 1.50 },
+      { "name": "Kalamata olives", "quantity": 60, "unit": "g", "averagePrice": 1.20 },
+      { "name": "Feta cheese", "quantity": 80, "unit": "g", "averagePrice": 1.50 },
+      { "name": "Red onion", "quantity": 0.5, "unit": "whole", "averagePrice": 0.30 },
+      { "name": "Olive oil", "quantity": 3, "unit": "tbsp", "averagePrice": 0.60 },
+      { "name": "Dried oregano", "quantity": 1, "unit": "tsp", "averagePrice": 0.10 }
+    ]
+  },
+  {
+    "id": "meal-006",
+    "name": "Beef Noodle Bowl",
+    "description": "Savory egg noodles with tender beef strips and fresh bok choy in a ginger soy broth.",
+    "estimatedCost": 11.00,
+    "restaurantPrice": 22.00,
+    "cookingTime": 30,
+    "dietaryTags": ["dairy-free", "nut-free"],
+    "macros": { "calories": 580, "protein": 38, "carbs": 52, "fat": 20 },
+    "ingredients": [
+      { "name": "Beef sirloin", "quantity": 250, "unit": "g", "averagePrice": 5.50 },
+      { "name": "Egg noodles", "quantity": 180, "unit": "g", "averagePrice": 1.20 },
+      { "name": "Bok choy", "quantity": 200, "unit": "g", "averagePrice": 1.50 },
+      { "name": "Soy sauce", "quantity": 3, "unit": "tbsp", "averagePrice": 0.40 },
+      { "name": "Oyster sauce", "quantity": 1, "unit": "tbsp", "averagePrice": 0.50 },
+      { "name": "Ginger", "quantity": 1, "unit": "tsp", "averagePrice": 0.30 },
+      { "name": "Scallions", "quantity": 3, "unit": "stalks", "averagePrice": 0.40 }
+    ]
+  },
+  {
+    "id": "meal-007",
+    "name": "Caprese Omelette",
+    "description": "Fluffy egg omelette stuffed with fresh mozzarella, tomatoes, and fragrant basil.",
+    "estimatedCost": 5.50,
+    "restaurantPrice": 14.00,
+    "cookingTime": 15,
+    "dietaryTags": ["vegetarian", "gluten-free", "nut-free"],
+    "macros": { "calories": 380, "protein": 28, "carbs": 8, "fat": 26 },
+    "ingredients": [
+      { "name": "Eggs", "quantity": 3, "unit": "whole", "averagePrice": 1.20 },
+      { "name": "Mozzarella", "quantity": 60, "unit": "g", "averagePrice": 1.80 },
+      { "name": "Tomato", "quantity": 1, "unit": "whole", "averagePrice": 0.70 },
+      { "name": "Fresh basil", "quantity": 5, "unit": "leaves", "averagePrice": 0.40 },
+      { "name": "Butter", "quantity": 1, "unit": "tsp", "averagePrice": 0.20 },
+      { "name": "Salt & pepper", "quantity": 1, "unit": "pinch", "averagePrice": 0.05 }
+    ]
+  },
+  {
+    "id": "meal-008",
+    "name": "Pesto Pasta",
+    "description": "Al dente penne tossed with vibrant basil pesto, cherry tomatoes, and parmesan.",
+    "estimatedCost": 7.50,
+    "restaurantPrice": 20.00,
+    "cookingTime": 20,
+    "dietaryTags": ["vegetarian"],
+    "macros": { "calories": 560, "protein": 18, "carbs": 72, "fat": 24 },
+    "ingredients": [
+      { "name": "Penne pasta", "quantity": 200, "unit": "g", "averagePrice": 1.50 },
+      { "name": "Basil pesto", "quantity": 4, "unit": "tbsp", "averagePrice": 2.50 },
+      { "name": "Pine nuts", "quantity": 2, "unit": "tbsp", "averagePrice": 1.80 },
+      { "name": "Parmesan", "quantity": 30, "unit": "g", "averagePrice": 1.00 },
+      { "name": "Cherry tomatoes", "quantity": 100, "unit": "g", "averagePrice": 0.80 }
+    ]
+  },
+  {
+    "id": "meal-009",
+    "name": "Baked Salmon & Asparagus",
+    "description": "Oven-baked salmon fillet with lemon, dill, and roasted asparagus on the side.",
+    "estimatedCost": 13.00,
+    "restaurantPrice": 28.00,
+    "cookingTime": 30,
+    "dietaryTags": ["gluten-free", "dairy-free", "nut-free"],
+    "macros": { "calories": 480, "protein": 46, "carbs": 12, "fat": 28 },
+    "ingredients": [
+      { "name": "Salmon fillet", "quantity": 300, "unit": "g", "averagePrice": 8.00 },
+      { "name": "Asparagus", "quantity": 200, "unit": "g", "averagePrice": 2.50 },
+      { "name": "Lemon", "quantity": 1, "unit": "whole", "averagePrice": 0.50 },
+      { "name": "Olive oil", "quantity": 2, "unit": "tbsp", "averagePrice": 0.40 },
+      { "name": "Garlic powder", "quantity": 0.5, "unit": "tsp", "averagePrice": 0.10 },
+      { "name": "Dried dill", "quantity": 1, "unit": "tsp", "averagePrice": 0.20 },
+      { "name": "Salt & pepper", "quantity": 1, "unit": "pinch", "averagePrice": 0.05 }
+    ]
+  },
+  {
+    "id": "meal-010",
+    "name": "Vegetable Fried Rice",
+    "description": "Quick fried rice with peas, carrots, and egg — better than takeout and ready in 20 minutes.",
+    "estimatedCost": 4.50,
+    "restaurantPrice": 15.00,
+    "cookingTime": 20,
+    "dietaryTags": ["vegetarian", "dairy-free", "nut-free"],
+    "macros": { "calories": 440, "protein": 14, "carbs": 68, "fat": 12 },
+    "ingredients": [
+      { "name": "Cooked rice (day-old)", "quantity": 300, "unit": "g", "averagePrice": 0.80 },
+      { "name": "Eggs", "quantity": 2, "unit": "whole", "averagePrice": 0.80 },
+      { "name": "Frozen peas & carrots", "quantity": 150, "unit": "g", "averagePrice": 0.80 },
+      { "name": "Soy sauce", "quantity": 2, "unit": "tbsp", "averagePrice": 0.30 },
+      { "name": "Sesame oil", "quantity": 1, "unit": "tsp", "averagePrice": 0.20 },
+      { "name": "Scallions", "quantity": 2, "unit": "stalks", "averagePrice": 0.30 },
+      { "name": "Vegetable oil", "quantity": 1, "unit": "tbsp", "averagePrice": 0.20 }
+    ]
+  },
+  {
+    "id": "meal-011",
+    "name": "Turkey & Avocado Wrap",
+    "description": "A quick and satisfying whole-wheat wrap with sliced turkey, creamy avocado, and mustard.",
+    "estimatedCost": 7.00,
+    "restaurantPrice": 14.00,
+    "cookingTime": 15,
+    "dietaryTags": ["dairy-free", "nut-free"],
+    "macros": { "calories": 520, "protein": 32, "carbs": 42, "fat": 22 },
+    "ingredients": [
+      { "name": "Whole-wheat tortilla", "quantity": 2, "unit": "pieces", "averagePrice": 1.00 },
+      { "name": "Sliced turkey", "quantity": 120, "unit": "g", "averagePrice": 2.50 },
+      { "name": "Avocado", "quantity": 1, "unit": "whole", "averagePrice": 1.50 },
+      { "name": "Lettuce", "quantity": 2, "unit": "leaves", "averagePrice": 0.30 },
+      { "name": "Tomato", "quantity": 1, "unit": "whole", "averagePrice": 0.70 },
+      { "name": "Mustard", "quantity": 1, "unit": "tbsp", "averagePrice": 0.20 }
+    ]
+  },
+  {
+    "id": "meal-012",
+    "name": "Shakshuka",
+    "description": "Eggs poached in a rich spiced tomato and pepper sauce. Great for any time of day.",
+    "estimatedCost": 5.50,
+    "restaurantPrice": 16.00,
+    "cookingTime": 25,
+    "dietaryTags": ["vegetarian", "gluten-free", "dairy-free", "nut-free"],
+    "macros": { "calories": 360, "protein": 22, "carbs": 28, "fat": 18 },
+    "ingredients": [
+      { "name": "Eggs", "quantity": 4, "unit": "whole", "averagePrice": 1.60 },
+      { "name": "Canned tomatoes", "quantity": 400, "unit": "g", "averagePrice": 1.00 },
+      { "name": "Bell pepper", "quantity": 1, "unit": "whole", "averagePrice": 0.90 },
+      { "name": "Onion", "quantity": 1, "unit": "whole", "averagePrice": 0.50 },
+      { "name": "Garlic", "quantity": 2, "unit": "cloves", "averagePrice": 0.20 },
+      { "name": "Cumin", "quantity": 1, "unit": "tsp", "averagePrice": 0.10 },
+      { "name": "Paprika", "quantity": 1, "unit": "tsp", "averagePrice": 0.10 },
+      { "name": "Olive oil", "quantity": 2, "unit": "tbsp", "averagePrice": 0.40 }
+    ]
+  },
+  {
+    "id": "meal-013",
+    "name": "Chickpea Curry",
+    "description": "Creamy coconut chickpea curry with baby spinach, served over fragrant basmati rice.",
+    "estimatedCost": 6.50,
+    "restaurantPrice": 18.00,
+    "cookingTime": 30,
+    "dietaryTags": ["vegetarian", "vegan", "gluten-free", "dairy-free", "nut-free"],
+    "macros": { "calories": 520, "protein": 18, "carbs": 72, "fat": 16 },
+    "ingredients": [
+      { "name": "Chickpeas (canned)", "quantity": 400, "unit": "g", "averagePrice": 1.00 },
+      { "name": "Coconut milk", "quantity": 200, "unit": "ml", "averagePrice": 1.50 },
+      { "name": "Baby spinach", "quantity": 80, "unit": "g", "averagePrice": 1.20 },
+      { "name": "Onion", "quantity": 1, "unit": "whole", "averagePrice": 0.50 },
+      { "name": "Garlic", "quantity": 2, "unit": "cloves", "averagePrice": 0.20 },
+      { "name": "Curry powder", "quantity": 2, "unit": "tsp", "averagePrice": 0.20 },
+      { "name": "Basmati rice", "quantity": 160, "unit": "g", "averagePrice": 0.90 }
+    ]
+  },
+  {
+    "id": "meal-014",
+    "name": "Margherita Flatbread",
+    "description": "Easy flatbread topped with tomato sauce, fresh mozzarella, and fragrant basil leaves.",
+    "estimatedCost": 6.00,
+    "restaurantPrice": 16.00,
+    "cookingTime": 20,
+    "dietaryTags": ["vegetarian", "nut-free"],
+    "macros": { "calories": 480, "protein": 20, "carbs": 56, "fat": 18 },
+    "ingredients": [
+      { "name": "Flatbread", "quantity": 2, "unit": "pieces", "averagePrice": 1.50 },
+      { "name": "Tomato sauce", "quantity": 4, "unit": "tbsp", "averagePrice": 0.60 },
+      { "name": "Mozzarella", "quantity": 120, "unit": "g", "averagePrice": 2.50 },
+      { "name": "Fresh basil", "quantity": 6, "unit": "leaves", "averagePrice": 0.40 },
+      { "name": "Olive oil", "quantity": 1, "unit": "tbsp", "averagePrice": 0.20 }
+    ]
+  },
+  {
+    "id": "meal-015",
+    "name": "Tuna & White Bean Salad",
+    "description": "Protein-packed no-cook salad with canned tuna, cannellini beans, celery, and lemon dressing.",
+    "estimatedCost": 5.00,
+    "restaurantPrice": 14.00,
+    "cookingTime": 15,
+    "dietaryTags": ["gluten-free", "dairy-free", "nut-free"],
+    "macros": { "calories": 420, "protein": 38, "carbs": 34, "fat": 12 },
+    "ingredients": [
+      { "name": "Canned tuna", "quantity": 160, "unit": "g", "averagePrice": 2.00 },
+      { "name": "Cannellini beans (canned)", "quantity": 400, "unit": "g", "averagePrice": 1.00 },
+      { "name": "Red onion", "quantity": 0.5, "unit": "whole", "averagePrice": 0.30 },
+      { "name": "Celery", "quantity": 2, "unit": "stalks", "averagePrice": 0.30 },
+      { "name": "Lemon juice", "quantity": 2, "unit": "tbsp", "averagePrice": 0.30 },
+      { "name": "Olive oil", "quantity": 2, "unit": "tbsp", "averagePrice": 0.40 },
+      { "name": "Fresh parsley", "quantity": 2, "unit": "tbsp", "averagePrice": 0.50 }
+    ]
+  }
+]
