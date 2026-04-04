@@ -11,7 +11,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
 import { useAppContext } from '@/context/AppContext';
 import { AppColors, AppRadius, AppShadow } from '@/constants/theme';
-import { SavingsChart } from '@/components/SavingsChart';
+import { SavingsChart, HOME_COLOR, REST_COLOR } from '@/components/SavingsChart';
 import { DayKey } from '@/types';
 
 const DAYS: { key: DayKey; label: string }[] = [
@@ -24,20 +24,6 @@ const DAYS: { key: DayKey; label: string }[] = [
   { key: 'sun', label: 'Sun' },
 ];
 
-function getWeekDates(): Record<DayKey, number> {
-  const today = new Date();
-  const jsDay = today.getDay(); // 0=Sun
-  const monday = new Date(today);
-  monday.setDate(today.getDate() - (jsDay === 0 ? 6 : jsDay - 1));
-  const result = {} as Record<DayKey, number>;
-  DAYS.forEach(({ key }, i) => {
-    const d = new Date(monday);
-    d.setDate(monday.getDate() + i);
-    result[key] = d.getDate();
-  });
-  return result;
-}
-
 function getTodayKey(): DayKey {
   const keys: DayKey[] = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
   return keys[new Date().getDay()];
@@ -49,26 +35,23 @@ export default function DashboardScreen() {
     selectedDay,
     setSelectedDay,
     mealsByDay,
-    selectedMeals,
     groceryItems,
     clearSelections,
   } = useAppContext();
 
-  const weekDates = getWeekDates();
   const todayKey = getTodayKey();
-
   const allMeals = Object.values(mealsByDay).flat();
   const totalCost = allMeals.reduce((sum, m) => sum + m.estimatedCost, 0);
-  const totalRestaurantCost = allMeals.reduce((sum, m) => sum + m.restaurantPrice, 0);
-  const totalSavings = totalRestaurantCost - totalCost;
+  const totalRestaurant = allMeals.reduce((sum, m) => sum + m.restaurantPrice, 0);
+  const totalSavings = totalRestaurant - totalCost;
 
   const dayMeals = mealsByDay[selectedDay];
 
   return (
     <SafeAreaView style={styles.safe} edges={['top']}>
-      <ScrollView style={styles.scroll} contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
+      <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.content}>
 
-        {/* Header */}
+        {/* ── Header ── */}
         <View style={styles.header}>
           <Image
             source={require('@/assets/images/budgetbites logo.png')}
@@ -77,41 +60,73 @@ export default function DashboardScreen() {
           />
         </View>
 
-        {/* Savings Widget */}
-        <View style={styles.savingsCard}>
-          <View style={styles.savingsLeft}>
-            <Text style={styles.savingsLabel}>You're saving</Text>
-            <Text style={styles.savingsAmount}>
-              ${totalSavings > 0 ? totalSavings.toFixed(2) : '0.00'}
-            </Text>
-            <Text style={styles.savingsSubtext}>vs. eating out</Text>
+        {/* ── Hero ── */}
+        <View style={styles.hero}>
+          <Text style={styles.heroLabel}>You're saving this week</Text>
+          <Text style={styles.heroAmount}>
+            ${totalSavings > 0 ? totalSavings.toFixed(2) : '0.00'}
+          </Text>
+          <Text style={styles.heroSub}>
+            {'Home Cooking  ·  '}
+            <Text style={{ color: HOME_COLOR }}>${totalCost.toFixed(2)}</Text>
+            {'  vs.  Restaurant  ·  '}
+            <Text style={{ color: REST_COLOR }}>${totalRestaurant.toFixed(2)}</Text>
+          </Text>
+        </View>
+
+        {/* ── Stats row ── */}
+        <View style={styles.statsRow}>
+          <View style={styles.statItem}>
+            <Text style={styles.statValue}>{allMeals.length}</Text>
+            <Text style={styles.statLabel}>Meals</Text>
           </View>
-          <View style={styles.savingsDivider} />
-          <View style={styles.savingsRight}>
-            <View style={styles.savingsCompareRow}>
-              <Text style={styles.savingsCompareLabel}>Home cooking</Text>
-              <Text style={styles.savingsCompareValue}>${totalCost.toFixed(2)}</Text>
-            </View>
-            <View style={styles.savingsBarTrack}>
-              <View style={[styles.savingsBarFill, {
-                width: totalRestaurantCost > 0
-                  ? `${Math.round((totalCost / totalRestaurantCost) * 100)}%`
-                  : '0%',
-              }]} />
-            </View>
-            <View style={styles.savingsCompareRow}>
-              <Text style={styles.savingsCompareLabel}>Restaurant</Text>
-              <Text style={[styles.savingsCompareValue, { color: 'rgba(255,255,255,0.65)' }]}>
-                ${totalRestaurantCost.toFixed(2)}
-              </Text>
-            </View>
+          <View style={styles.statDivider} />
+          <View style={styles.statItem}>
+            <Text style={styles.statValue}>${totalCost.toFixed(2)}</Text>
+            <Text style={styles.statLabel}>Weekly Cost</Text>
+          </View>
+          <View style={styles.statDivider} />
+          <View style={styles.statItem}>
+            <Text style={styles.statValue}>{groceryItems.length}</Text>
+            <Text style={styles.statLabel}>Grocery Items</Text>
           </View>
         </View>
 
-        {/* Weekly Calendar */}
-        <View style={styles.calendarCard}>
-          <View style={styles.calendarHeader}>
-            <Text style={styles.cardTitle}>THIS WEEK</Text>
+        {/* ── Line graph — full bleed ── */}
+        <SavingsChart mealsByDay={mealsByDay} />
+
+        {/* ── Day selector ── */}
+        <View style={styles.daySelector}>
+          {DAYS.map(({ key, label }) => {
+            const isSelected = key === selectedDay;
+            const isToday = key === todayKey;
+            const hasMeals = mealsByDay[key].length > 0;
+            return (
+              <TouchableOpacity
+                key={key}
+                style={[styles.dayPill, isSelected && styles.dayPillSelected]}
+                onPress={() => setSelectedDay(key)}
+                activeOpacity={0.7}
+              >
+                <Text style={[
+                  styles.dayPillText,
+                  isSelected && styles.dayPillTextSelected,
+                  isToday && !isSelected && styles.dayPillTextToday,
+                ]}>
+                  {label}
+                </Text>
+                {hasMeals && !isSelected && <View style={styles.dayDot} />}
+              </TouchableOpacity>
+            );
+          })}
+        </View>
+
+        {/* ── Weekly meals card (like "Top Collected") ── */}
+        <View style={styles.weekCard}>
+          <View style={styles.weekCardHeader}>
+            <Text style={styles.weekCardTitle}>
+              {DAYS.find(d => d.key === selectedDay)?.label}'s Meals
+            </Text>
             {allMeals.length > 0 && (
               <TouchableOpacity onPress={clearSelections}>
                 <Text style={styles.clearText}>Clear all</Text>
@@ -119,112 +134,56 @@ export default function DashboardScreen() {
             )}
           </View>
 
-          <View style={styles.daysRow}>
-            {DAYS.map(({ key, label }) => {
-              const isToday = key === todayKey;
-              const isSelected = key === selectedDay;
-              const hasMeals = mealsByDay[key].length > 0;
-
-              return (
-                <TouchableOpacity
-                  key={key}
+          {dayMeals.length === 0 ? (
+            <TouchableOpacity
+              style={styles.emptyRow}
+              onPress={() => router.navigate('/(tabs)/suggestions')}
+              activeOpacity={0.75}
+            >
+              <Text style={styles.emptyRowIcon}>🍽</Text>
+              <View style={{ flex: 1 }}>
+                <Text style={styles.emptyRowTitle}>No meals planned</Text>
+                <Text style={styles.emptyRowSub}>Tap to browse suggestions</Text>
+              </View>
+              <Text style={styles.rowArrow}>›</Text>
+            </TouchableOpacity>
+          ) : (
+            <>
+              {dayMeals.map((meal, idx) => (
+                <View
+                  key={meal.id}
                   style={[
-                    styles.dayButton,
-                    isSelected && styles.dayButtonSelected,
-                    isToday && !isSelected && styles.dayButtonToday,
+                    styles.mealRow,
+                    idx < dayMeals.length - 1 && styles.mealRowBorder,
                   ]}
-                  onPress={() => setSelectedDay(key)}
-                  activeOpacity={0.7}
                 >
-                  <Text style={[
-                    styles.dayLabel,
-                    isSelected && styles.dayLabelSelected,
-                    isToday && !isSelected && styles.dayLabelToday,
-                  ]}>
-                    {label}
-                  </Text>
-                  <Text style={[
-                    styles.dayDate,
-                    isSelected && styles.dayDateSelected,
-                  ]}>
-                    {weekDates[key]}
-                  </Text>
-                  {hasMeals && (
-                    <View style={[
-                      styles.dot,
-                      isSelected && styles.dotSelected,
-                    ]} />
-                  )}
-                </TouchableOpacity>
-              );
-            })}
-          </View>
-
-          {/* Day Meals */}
-          <View style={styles.dayMealsSection}>
-            {dayMeals.length === 0 ? (
+                  <View style={styles.mealRowLeft}>
+                    <Text style={styles.mealRowName}>{meal.name}</Text>
+                    <Text style={styles.mealRowMeta}>
+                      {meal.macros.calories} kcal  ·  {meal.macros.protein}g protein  ·  {meal.cookingTime} min
+                    </Text>
+                  </View>
+                  <View style={styles.mealRowRight}>
+                    <Text style={styles.mealRowCost}>${meal.estimatedCost.toFixed(2)}</Text>
+                    <Text style={styles.mealRowSave}>
+                      save ${(meal.restaurantPrice - meal.estimatedCost).toFixed(2)}
+                    </Text>
+                  </View>
+                  <Text style={styles.rowArrow}>›</Text>
+                </View>
+              ))}
               <TouchableOpacity
-                style={styles.emptyDayRow}
+                style={styles.addRow}
                 onPress={() => router.navigate('/(tabs)/suggestions')}
                 activeOpacity={0.7}
               >
-                <Text style={styles.emptyDayText}>No meals — tap to add</Text>
-                <Text style={styles.emptyDayArrow}>→</Text>
+                <Text style={styles.addRowText}>+ Add more meals</Text>
               </TouchableOpacity>
-            ) : (
-              <>
-                {dayMeals.map(meal => (
-                  <View key={meal.id} style={styles.dayMealRow}>
-                    <View style={styles.dayMealInfo}>
-                      <Text style={styles.dayMealName}>{meal.name}</Text>
-                      <Text style={styles.dayMealMeta}>
-                        ${meal.estimatedCost.toFixed(2)}  ·  {meal.cookingTime} min  ·  {meal.macros.calories} kcal
-                      </Text>
-                    </View>
-                  </View>
-                ))}
-                <TouchableOpacity
-                  style={styles.addMoreRow}
-                  onPress={() => router.navigate('/(tabs)/suggestions')}
-                  activeOpacity={0.7}
-                >
-                  <Text style={styles.addMoreText}>+ Add more meals</Text>
-                </TouchableOpacity>
-              </>
-            )}
-          </View>
+            </>
+          )}
         </View>
 
-        {/* Summary Card */}
-        <View style={styles.card}>
-          <Text style={styles.cardTitle}>WEEKLY SUMMARY</Text>
-          <View style={styles.statRow}>
-            <Text style={styles.statLabel}>Budget per meal</Text>
-            <Text style={styles.statValue}>${preferences.budget.toFixed(2)}</Text>
-          </View>
-          <View style={styles.separator} />
-          <View style={styles.statRow}>
-            <Text style={styles.statLabel}>Total meals planned</Text>
-            <Text style={styles.statValue}>{allMeals.length}</Text>
-          </View>
-          <View style={styles.separator} />
-          <View style={styles.statRow}>
-            <Text style={styles.statLabel}>Est. weekly cost</Text>
-            <Text style={[styles.statValue, { color: AppColors.primary }]}>
-              ${totalCost.toFixed(2)}
-            </Text>
-          </View>
-          <View style={styles.separator} />
-          <View style={styles.statRow}>
-            <Text style={styles.statLabel}>Items to buy</Text>
-            <Text style={styles.statValue}>{groceryItems.length}</Text>
-          </View>
-        </View>
-
-        {/* Savings Chart */}
-        <SavingsChart selectedMeals={allMeals} />
-
-        {/* CTA */}
+        {/* ── CTA ── */}
         <TouchableOpacity
           style={styles.ctaButton}
           onPress={() => router.navigate('/(tabs)/preferences')}
@@ -239,254 +198,204 @@ export default function DashboardScreen() {
 }
 
 const styles = StyleSheet.create({
-  safe: {
-    flex: 1,
-    backgroundColor: AppColors.background,
-  },
-  scroll: { flex: 1 },
-  content: { paddingBottom: 40 },
+  safe: { flex: 1, backgroundColor: AppColors.background },
+  content: { paddingBottom: 48 },
 
+  // Header
   header: {
+    height: 60,
+    overflow: 'visible',
     alignItems: 'center',
-    paddingTop: 12,
-    paddingBottom: 4,
   },
-  logo: {
-    width: 140,
-    height: 78,
+  logo: { width: 160, height: 100 },
+  // Hero
+  hero: {
+    paddingHorizontal: 20,
+    paddingTop: 16,
+    paddingBottom: 20,
   },
-
-  // Savings Widget
-  savingsCard: {
-    backgroundColor: AppColors.primary,
-    borderRadius: AppRadius.card,
-    marginHorizontal: 16,
-    marginTop: 8,
-    padding: 20,
-    flexDirection: 'row',
-    alignItems: 'center',
-    ...AppShadow.card,
+  heroLabel: {
+    fontSize: 15,
+    color: AppColors.textSecondary,
+    letterSpacing: -0.3,
+    marginBottom: 4,
   },
-  savingsLeft: {
-    alignItems: 'center',
-    paddingRight: 20,
-    minWidth: 110,
-  },
-  savingsLabel: {
-    fontSize: 13,
-    color: 'rgba(255,255,255,0.75)',
-    fontWeight: '500',
-  },
-  savingsAmount: {
-    fontSize: 34,
+  heroAmount: {
+    fontSize: 56,
     fontWeight: '700',
     color: '#34C759',
-    letterSpacing: -1,
-    marginVertical: 2,
+    letterSpacing: -2,
+    lineHeight: 62,
   },
-  savingsSubtext: {
-    fontSize: 12,
-    color: 'rgba(255,255,255,0.65)',
-  },
-  savingsDivider: {
-    width: 1,
-    height: '100%',
-    backgroundColor: 'rgba(255,255,255,0.25)',
-    marginRight: 20,
-  },
-  savingsRight: {
-    flex: 1,
-    gap: 6,
-  },
-  savingsCompareRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  savingsCompareLabel: {
+  heroSub: {
     fontSize: 13,
-    color: 'rgba(255,255,255,0.75)',
-  },
-  savingsCompareValue: {
-    fontSize: 13,
-    fontWeight: '600',
-    color: '#FFFFFF',
-  },
-  savingsBarTrack: {
-    height: 5,
-    backgroundColor: 'rgba(255,255,255,0.25)',
-    borderRadius: 3,
-    overflow: 'hidden',
-  },
-  savingsBarFill: {
-    height: '100%',
-    backgroundColor: '#34C759',
-    borderRadius: 3,
+    color: AppColors.textSecondary,
+    marginTop: 6,
+    letterSpacing: -0.2,
   },
 
-  // Calendar
-  calendarCard: {
+  // Stats
+  statsRow: {
+    flexDirection: 'row',
+    paddingHorizontal: 20,
+    paddingBottom: 20,
+  },
+  statItem: { flex: 1 },
+  statValue: {
+    fontSize: 22,
+    fontWeight: '700',
+    color: AppColors.textPrimary,
+    letterSpacing: -0.5,
+  },
+  statLabel: {
+    fontSize: 13,
+    color: AppColors.textSecondary,
+    marginTop: 2,
+  },
+  statDivider: {
+    width: StyleSheet.hairlineWidth,
+    height: 36,
+    backgroundColor: AppColors.separator,
+    marginHorizontal: 16,
+    alignSelf: 'center',
+  },
+
+
+  // Day selector
+  daySelector: {
+    flexDirection: 'row',
+    paddingHorizontal: 16,
+    marginTop: 16,
+    marginBottom: 16,
+    gap: 4,
+  },
+  dayPill: {
+    flex: 1,
+    alignItems: 'center',
+    paddingVertical: 8,
+    borderRadius: AppRadius.pill,
+  },
+  dayPillSelected: { backgroundColor: AppColors.primary },
+  dayPillText: {
+    fontSize: 13,
+    fontWeight: '500',
+    color: AppColors.textSecondary,
+  },
+  dayPillTextSelected: { color: '#FFFFFF', fontWeight: '600' },
+  dayPillTextToday: { color: AppColors.primary, fontWeight: '600' },
+  dayDot: {
+    width: 4,
+    height: 4,
+    borderRadius: 2,
+    backgroundColor: AppColors.primary,
+    marginTop: 3,
+  },
+
+  // Weekly card
+  weekCard: {
     backgroundColor: AppColors.card,
     borderRadius: AppRadius.card,
     marginHorizontal: 16,
-    marginTop: 16,
-    padding: 16,
+    overflow: 'hidden',
+    borderWidth: 1,
+    borderColor: AppColors.separator,
     ...AppShadow.card,
   },
-  calendarHeader: {
+  weekCardHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 14,
+    paddingHorizontal: 16,
+    paddingTop: 18,
+    paddingBottom: 14,
+    backgroundColor: AppColors.primary,
   },
-  cardTitle: {
-    fontSize: 13,
-    fontWeight: '600',
-    color: AppColors.textSecondary,
-    letterSpacing: 0.5,
+  weekCardTitle: {
+    fontSize: 20,
+    fontWeight: '700',
+    color: '#FFFFFF',
+    letterSpacing: -0.5,
   },
   clearText: {
     fontSize: 14,
-    color: AppColors.destructive,
+    color: 'rgba(255,255,255,0.8)',
   },
-  daysRow: {
+  emptyRow: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  dayButton: {
-    flex: 1,
     alignItems: 'center',
-    paddingVertical: 8,
-    borderRadius: 12,
-    marginHorizontal: 2,
-    minHeight: 58,
-    justifyContent: 'center',
+    paddingHorizontal: 16,
+    paddingVertical: 18,
+    gap: 12,
   },
-  dayButtonSelected: {
-    backgroundColor: AppColors.primary,
-  },
-  dayButtonToday: {
-    backgroundColor: AppColors.background,
-  },
-  dayLabel: {
-    fontSize: 11,
-    fontWeight: '500',
-    color: AppColors.textSecondary,
-    marginBottom: 4,
-  },
-  dayLabelSelected: {
-    color: '#FFFFFF',
-  },
-  dayLabelToday: {
-    color: AppColors.primary,
-    fontWeight: '600',
-  },
-  dayDate: {
-    fontSize: 17,
+  emptyRowIcon: { fontSize: 24 },
+  emptyRowTitle: {
+    fontSize: 15,
     fontWeight: '600',
     color: AppColors.textPrimary,
   },
-  dayDateSelected: {
-    color: '#FFFFFF',
-  },
-  dot: {
-    width: 5,
-    height: 5,
-    borderRadius: 3,
-    backgroundColor: AppColors.primary,
-    marginTop: 4,
-  },
-  dotSelected: {
-    backgroundColor: '#FFFFFF',
-  },
-
-  // Day Meals
-  dayMealsSection: {
-    marginTop: 14,
-    borderTopWidth: StyleSheet.hairlineWidth,
-    borderTopColor: AppColors.separator,
-    paddingTop: 12,
-  },
-  emptyDayRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingVertical: 8,
-  },
-  emptyDayText: {
-    fontSize: 15,
+  emptyRowSub: {
+    fontSize: 13,
     color: AppColors.textSecondary,
-    fontStyle: 'italic',
+    marginTop: 2,
   },
-  emptyDayArrow: {
-    fontSize: 15,
-    color: AppColors.primary,
+  rowArrow: {
+    fontSize: 22,
+    color: AppColors.separator,
+    fontWeight: '300',
   },
-  dayMealRow: {
+  mealRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 8,
+    paddingHorizontal: 16,
+    paddingVertical: 14,
+    gap: 8,
+  },
+  mealRowBorder: {
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderBottomColor: AppColors.separator,
   },
-  dayMealInfo: {
-    flex: 1,
-  },
-  dayMealName: {
+  mealRowLeft: { flex: 1 },
+  mealRowName: {
     fontSize: 15,
     fontWeight: '600',
     color: AppColors.textPrimary,
     letterSpacing: -0.3,
   },
-  dayMealMeta: {
-    fontSize: 13,
+  mealRowMeta: {
+    fontSize: 12,
     color: AppColors.textSecondary,
+    marginTop: 3,
+  },
+  mealRowRight: { alignItems: 'flex-end', marginRight: 4 },
+  mealRowCost: {
+    fontSize: 15,
+    fontWeight: '700',
+    color: AppColors.textPrimary,
+  },
+  mealRowSave: {
+    fontSize: 12,
+    color: '#34C759',
+    fontWeight: '500',
     marginTop: 2,
   },
-  addMoreRow: {
-    paddingTop: 10,
+  addRow: {
+    paddingVertical: 14,
     alignItems: 'center',
+    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopColor: AppColors.separator,
   },
-  addMoreText: {
+  addRowText: {
     fontSize: 14,
     color: AppColors.primary,
     fontWeight: '500',
   },
 
-  // Summary Card
-  card: {
-    backgroundColor: AppColors.card,
-    borderRadius: AppRadius.card,
-    marginHorizontal: 16,
-    marginTop: 16,
-    padding: 16,
-    ...AppShadow.card,
-  },
-  statRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingVertical: 10,
-  },
-  statLabel: {
-    fontSize: 17,
-    color: AppColors.textPrimary,
-    letterSpacing: -0.4,
-  },
-  statValue: {
-    fontSize: 17,
-    fontWeight: '600',
-    color: AppColors.textPrimary,
-    letterSpacing: -0.4,
-  },
-  separator: {
-    height: StyleSheet.hairlineWidth,
-    backgroundColor: AppColors.separator,
-  },
+  // CTA
   ctaButton: {
     backgroundColor: AppColors.primary,
     borderRadius: AppRadius.button,
     marginHorizontal: 16,
-    marginTop: 20,
+    marginTop: 16,
     paddingVertical: 16,
     alignItems: 'center',
   },
