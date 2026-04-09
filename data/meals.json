@@ -6,7 +6,7 @@
     "estimatedCost": 4.50,
     "restaurantPrice": 18.00,
     "cookingTime": 20,
-    "dietaryTags": ["vegetarian", "vegan", "dairy-free", "nut-free"],
+    "dietaryTags": ["vegetarian", "vegan", "dairy-free", "nut-free", "halal"],
     "macros": { "calories": 520, "protein": 14, "carbs": 68, "fat": 22 },
     "ingredients": [
       { "name": "Spaghetti", "quantity": 200, "unit": "g", "averagePrice": 1.50 },
@@ -24,7 +24,7 @@
     "estimatedCost": 6.00,
     "restaurantPrice": 14.00,
     "cookingTime": 15,
-    "dietaryTags": ["vegetarian", "vegan", "gluten-free", "dairy-free", "nut-free"],
+    "dietaryTags": ["vegetarian", "vegan", "gluten-free", "dairy-free", "nut-free", "halal"],
     "macros": { "calories": 480, "protein": 18, "carbs": 65, "fat": 16 },
     "ingredients": [
       { "name": "Corn tortillas", "quantity": 6, "unit": "pieces", "averagePrice": 1.20 },
@@ -61,7 +61,7 @@
     "estimatedCost": 4.00,
     "restaurantPrice": 12.00,
     "cookingTime": 35,
-    "dietaryTags": ["vegetarian", "vegan", "gluten-free", "dairy-free", "nut-free"],
+    "dietaryTags": ["vegetarian", "vegan", "gluten-free", "dairy-free", "nut-free", "halal"],
     "macros": { "calories": 380, "protein": 22, "carbs": 54, "fat": 8 },
     "ingredients": [
       { "name": "Red lentils", "quantity": 200, "unit": "g", "averagePrice": 1.20 },
@@ -80,7 +80,7 @@
     "estimatedCost": 7.00,
     "restaurantPrice": 16.00,
     "cookingTime": 15,
-    "dietaryTags": ["vegetarian", "gluten-free", "nut-free"],
+    "dietaryTags": ["vegetarian", "gluten-free", "nut-free", "halal"],
     "macros": { "calories": 420, "protein": 18, "carbs": 38, "fat": 22 },
     "ingredients": [
       { "name": "Chickpeas (canned)", "quantity": 400, "unit": "g", "averagePrice": 1.00 },
@@ -119,7 +119,7 @@
     "estimatedCost": 5.50,
     "restaurantPrice": 14.00,
     "cookingTime": 15,
-    "dietaryTags": ["vegetarian", "gluten-free", "nut-free"],
+    "dietaryTags": ["vegetarian", "gluten-free", "nut-free", "halal"],
     "macros": { "calories": 380, "protein": 28, "carbs": 8, "fat": 26 },
     "ingredients": [
       { "name": "Eggs", "quantity": 3, "unit": "whole", "averagePrice": 1.20 },
@@ -154,7 +154,7 @@
     "estimatedCost": 13.00,
     "restaurantPrice": 28.00,
     "cookingTime": 30,
-    "dietaryTags": ["gluten-free", "dairy-free", "nut-free"],
+    "dietaryTags": ["gluten-free", "dairy-free", "nut-free", "halal"],
     "macros": { "calories": 480, "protein": 46, "carbs": 12, "fat": 28 },
     "ingredients": [
       { "name": "Salmon fillet", "quantity": 300, "unit": "g", "averagePrice": 8.00 },
@@ -173,7 +173,7 @@
     "estimatedCost": 4.50,
     "restaurantPrice": 15.00,
     "cookingTime": 20,
-    "dietaryTags": ["vegetarian", "dairy-free", "nut-free"],
+    "dietaryTags": ["vegetarian", "dairy-free", "nut-free", "halal"],
     "macros": { "calories": 440, "protein": 14, "carbs": 68, "fat": 12 },
     "ingredients": [
       { "name": "Cooked rice (day-old)", "quantity": 300, "unit": "g", "averagePrice": 0.80 },
@@ -210,7 +210,7 @@
     "estimatedCost": 5.50,
     "restaurantPrice": 16.00,
     "cookingTime": 25,
-    "dietaryTags": ["vegetarian", "gluten-free", "dairy-free", "nut-free"],
+    "dietaryTags": ["vegetarian", "gluten-free", "dairy-free", "nut-free", "halal"],
     "macros": { "calories": 360, "protein": 22, "carbs": 28, "fat": 18 },
     "ingredients": [
       { "name": "Eggs", "quantity": 4, "unit": "whole", "averagePrice": 1.60 },
@@ -230,7 +230,7 @@
     "estimatedCost": 6.50,
     "restaurantPrice": 18.00,
     "cookingTime": 30,
-    "dietaryTags": ["vegetarian", "vegan", "gluten-free", "dairy-free", "nut-free"],
+    "dietaryTags": ["vegetarian", "vegan", "gluten-free", "dairy-free", "nut-free", "halal"],
     "macros": { "calories": 520, "protein": 18, "carbs": 72, "fat": 16 },
     "ingredients": [
       { "name": "Chickpeas (canned)", "quantity": 400, "unit": "g", "averagePrice": 1.00 },
@@ -249,7 +249,7 @@
     "estimatedCost": 6.00,
     "restaurantPrice": 16.00,
     "cookingTime": 20,
-    "dietaryTags": ["vegetarian", "nut-free"],
+    "dietaryTags": ["vegetarian", "nut-free", "halal"],
     "macros": { "calories": 480, "protein": 20, "carbs": 56, "fat": 18 },
     "ingredients": [
       { "name": "Flatbread", "quantity": 2, "unit": "pieces", "averagePrice": 1.50 },
@@ -266,7 +266,7 @@
     "estimatedCost": 5.00,
     "restaurantPrice": 14.00,
     "cookingTime": 15,
-    "dietaryTags": ["gluten-free", "dairy-free", "nut-free"],
+    "dietaryTags": ["gluten-free", "dairy-free", "nut-free", "halal"],
     "macros": { "calories": 420, "protein": 38, "carbs": 34, "fat": 12 },
     "ingredients": [
       { "name": "Canned tuna", "quantity": 160, "unit": "g", "averagePrice": 2.00 },
@@ -276,6 +276,49 @@
       { "name": "Lemon juice", "quantity": 2, "unit": "tbsp", "averagePrice": 0.30 },
       { "name": "Olive oil", "quantity": 2, "unit": "tbsp", "averagePrice": 0.40 },
       { "name": "Fresh parsley", "quantity": 2, "unit": "tbsp", "averagePrice": 0.50 }
+    ]
+  },
+  {
+    "id": "meal-016",
+    "name": "Halal Lamb Kofta with Rice",
+    "description": "Spiced halal lamb kofta skewers served over fluffy basmati rice with a cucumber yogurt dip.",
+    "estimatedCost": 10.50,
+    "restaurantPrice": 24.00,
+    "cookingTime": 30,
+    "dietaryTags": ["halal", "gluten-free", "nut-free"],
+    "macros": { "calories": 580, "protein": 44, "carbs": 48, "fat": 22 },
+    "ingredients": [
+      { "name": "Halal ground lamb", "quantity": 300, "unit": "g", "averagePrice": 5.50 },
+      { "name": "Basmati rice", "quantity": 160, "unit": "g", "averagePrice": 0.90 },
+      { "name": "Onion", "quantity": 0.5, "unit": "whole", "averagePrice": 0.25 },
+      { "name": "Garlic", "quantity": 2, "unit": "cloves", "averagePrice": 0.20 },
+      { "name": "Cumin", "quantity": 1, "unit": "tsp", "averagePrice": 0.10 },
+      { "name": "Coriander", "quantity": 1, "unit": "tsp", "averagePrice": 0.10 },
+      { "name": "Greek yogurt", "quantity": 4, "unit": "tbsp", "averagePrice": 0.60 },
+      { "name": "Cucumber", "quantity": 0.5, "unit": "whole", "averagePrice": 0.40 },
+      { "name": "Fresh mint", "quantity": 1, "unit": "tbsp", "averagePrice": 0.30 }
+    ]
+  },
+  {
+    "id": "meal-017",
+    "name": "Halal Chicken Shawarma Bowl",
+    "description": "Tender spiced halal chicken thighs over rice with roasted veggies and garlic sauce.",
+    "estimatedCost": 9.50,
+    "restaurantPrice": 22.00,
+    "cookingTime": 35,
+    "dietaryTags": ["halal", "gluten-free", "dairy-free", "nut-free"],
+    "macros": { "calories": 560, "protein": 46, "carbs": 52, "fat": 18 },
+    "ingredients": [
+      { "name": "Halal chicken thighs", "quantity": 300, "unit": "g", "averagePrice": 3.50 },
+      { "name": "Basmati rice", "quantity": 160, "unit": "g", "averagePrice": 0.90 },
+      { "name": "Zucchini", "quantity": 1, "unit": "whole", "averagePrice": 0.80 },
+      { "name": "Bell pepper", "quantity": 1, "unit": "whole", "averagePrice": 0.90 },
+      { "name": "Olive oil", "quantity": 2, "unit": "tbsp", "averagePrice": 0.40 },
+      { "name": "Turmeric", "quantity": 0.5, "unit": "tsp", "averagePrice": 0.10 },
+      { "name": "Cumin", "quantity": 1, "unit": "tsp", "averagePrice": 0.10 },
+      { "name": "Paprika", "quantity": 1, "unit": "tsp", "averagePrice": 0.10 },
+      { "name": "Garlic", "quantity": 3, "unit": "cloves", "averagePrice": 0.30 },
+      { "name": "Lemon juice", "quantity": 1, "unit": "tbsp", "averagePrice": 0.20 }
     ]
   }
 ]

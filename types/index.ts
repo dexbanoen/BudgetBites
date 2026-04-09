@@ -17,7 +17,8 @@ export type DietaryTag =
   | 'vegan'
   | 'gluten-free'
   | 'dairy-free'
-  | 'nut-free';
+  | 'nut-free'
+  | 'halal';
 
 export interface Meal {
   id: string;

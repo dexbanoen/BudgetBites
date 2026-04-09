@@ -21,6 +21,7 @@ const DIETARY_OPTIONS: { tag: DietaryTag; label: string }[] = [
   { tag: 'gluten-free', label: 'Gluten-Free' },
   { tag: 'dairy-free', label: 'Dairy-Free' },
   { tag: 'nut-free', label: 'Nut-Free' },
+  { tag: 'halal', label: 'Halal' },
 ];
 
 const TIME_OPTIONS = [15, 30, 45, 60];
