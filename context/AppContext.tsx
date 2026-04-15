@@ -1,4 +1,5 @@
-import React, { createContext, useCallback, useContext, useMemo, useState } from 'react';
+import React, { createContext, useCallback, useContext, useMemo, useState, useEffect } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AppContextType, DayKey, DietaryTag, GroceryItem, Meal, Preferences } from '@/types';
 
 const DEFAULT_PREFERENCES: Preferences = {
@@ -23,6 +24,53 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   const [selectedDay, setSelectedDay] = useState<DayKey>(getTodayKey());
   const [mealsByDay, setMealsByDay] = useState<Record<DayKey, Meal[]>>(EMPTY_DAY_MEALS);
   const [checkedIds, setCheckedIds] = useState<Set<string>>(new Set());
+  const [isReady, setIsReady] = useState(false);
+
+  // Load from AsyncStorage on mount
+  useEffect(() => {
+    const loadState = async () => {
+      try {
+        const p = await AsyncStorage.getItem('preferences');
+        if (p) setPreferences(JSON.parse(p));
+
+        const d = await AsyncStorage.getItem('selectedDay');
+        if (d) setSelectedDay(d as DayKey);
+
+        const m = await AsyncStorage.getItem('mealsByDay');
+        if (m) setMealsByDay(JSON.parse(m));
+
+        const c = await AsyncStorage.getItem('checkedIds');
+        if (c) setCheckedIds(new Set(JSON.parse(c)));
+      } catch (e) {
+        console.warn("Failed to load state from local storage", e);
+      } finally {
+        setIsReady(true);
+      }
+    };
+    loadState();
+  }, []);
+
+  // Save to AsyncStorage when state changes
+  useEffect(() => {
+    if (!isReady) return;
+    AsyncStorage.setItem('preferences', JSON.stringify(preferences)).catch(() => {});
+  }, [preferences, isReady]);
+
+  useEffect(() => {
+    if (!isReady) return;
+    AsyncStorage.setItem('selectedDay', selectedDay).catch(() => {});
+  }, [selectedDay, isReady]);
+
+  useEffect(() => {
+    if (!isReady) return;
+    AsyncStorage.setItem('mealsByDay', JSON.stringify(mealsByDay)).catch(() => {});
+  }, [mealsByDay, isReady]);
+
+  useEffect(() => {
+    if (!isReady) return;
+    AsyncStorage.setItem('checkedIds', JSON.stringify(Array.from(checkedIds))).catch(() => {});
+  }, [checkedIds, isReady]);
+
 
   const selectedMeals = mealsByDay[selectedDay];
 
@@ -88,6 +136,9 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     toggleGroceryItem,
     clearSelections,
   };
+
+  // Skip rendering children until initial state is loaded
+  if (!isReady) return null;
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 }
