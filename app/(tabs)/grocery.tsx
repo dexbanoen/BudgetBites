@@ -15,6 +15,7 @@ import { GroceryItem } from '@/types';
 
 type Section = {
   title: string;
+  meal: string;
   data: GroceryItem[];
 };
 
@@ -27,6 +28,7 @@ export default function GroceryScreen() {
 
   const sections: Section[] = selectedMeals.map(meal => ({
     title: meal.name,
+    meal: meal.id,
     data: groceryItems.filter(item => item.mealId === meal.id),
   }));
 
@@ -83,6 +85,13 @@ export default function GroceryScreen() {
         renderSectionHeader={({ section }) => (
           <View style={styles.sectionHeader}>
             <Text style={styles.sectionTitle}>{section.title}</Text>
+            <TouchableOpacity
+              style={styles.recipeButton}
+              onPress={() => router.push(`/recipe/${section.meal}` as never)}
+              activeOpacity={0.8}
+            >
+              <Text style={styles.recipeButtonText}>Recipe</Text>
+            </TouchableOpacity>            
           </View>
         )}
         renderItem={({ item, index, section }) => {
@@ -159,6 +168,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingBottom: 6,
     paddingTop: 4,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',    
   },
   sectionTitle: {
     fontSize: 13,
@@ -167,6 +179,18 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
     letterSpacing: 0.5,
   },
+  recipeButton: {
+    backgroundColor: AppColors.primary,
+    borderRadius: AppRadius.button,
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+  },
+  recipeButtonText: {
+    color: '#FFFFFF',
+    fontSize: 12,
+    fontWeight: '700',
+    letterSpacing: 0.2,
+  },  
   itemWrapper: {
     marginHorizontal: 16,
     backgroundColor: AppColors.card,
